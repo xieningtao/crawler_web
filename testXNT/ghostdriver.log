@@ -1,0 +1,39 @@
+[INFO  - 2018-03-11T16:13:06.658Z] GhostDriver - Main - running on port 63673
+[INFO  - 2018-03-11T16:13:07.131Z] Session [15aaf030-2547-11e8-b2c8-49c61f7c20a6] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2018-03-11T16:13:07.131Z] Session [15aaf030-2547-11e8-b2c8-49c61f7c20a6] - page.customHeaders:  - {}
+[INFO  - 2018-03-11T16:13:07.131Z] Session [15aaf030-2547-11e8-b2c8-49c61f7c20a6] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"mac-unknown-64bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2018-03-11T16:13:07.132Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 15aaf030-2547-11e8-b2c8-49c61f7c20a6
+[ERROR - 2018-03-11T16:13:08.560Z] Session [15aaf030-2547-11e8-b2c8-49c61f7c20a6] - page.onError - msg: TypeError: undefined is not a constructor (evaluating 'e.videoElement.canPlayType(t)')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-03-11T16:13:08.560Z] Session [15aaf030-2547-11e8-b2c8-49c61f7c20a6] - page.onError - stack:
+  value (http://img.app.meitudata.com/meitumv/MPH5Player/1.0.0/main.min.js:2)
+  value (http://img.app.meitudata.com/meitumv/MPH5Player/1.0.0/main.min.js:2)
+  (anonymous function) (http://img.app.meitudata.com/meitumv/MPH5Player/1.0.0/main.min.js:2)
+  a (http://img.app.meitudata.com/meitumv/MPH5Player/1.0.0/main.min.js:1)
+  (anonymous function) (http://img.app.meitudata.com/meitumv/MPH5Player/1.0.0/main.min.js:1)
+  (anonymous function) (http://img.app.meitudata.com/meitumv/MPH5Player/1.0.0/main.min.js:2)
+  a (http://img.app.meitudata.com/meitumv/MPH5Player/1.0.0/main.min.js:1)
+  e (http://img.app.meitudata.com/meitumv/MPH5Player/1.0.0/main.min.js:1)
+  (anonymous function) (http://img.app.meitudata.com/meitumv/MPH5Player/1.0.0/main.min.js:1)
+  (anonymous function) (http://img.app.meitudata.com/meitumv/MPH5Player/1.0.0/main.min.js:1)
+
+  phantomjs://platform/console++.js:263 in error
+[INFO  - 2018-03-11T16:13:12.019Z] Session [15aaf030-2547-11e8-b2c8-49c61f7c20a6] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2018-03-11T16:13:12.020Z] Session [15aaf030-2547-11e8-b2c8-49c61f7c20a6] - page.customHeaders:  - {}
+[ERROR - 2018-03-11T16:13:12.282Z] Session [15aaf030-2547-11e8-b2c8-49c61f7c20a6] - page.onError - msg: TypeError: undefined is not a constructor (evaluating 'e.videoElement.canPlayType(t)')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-03-11T16:13:12.282Z] Session [15aaf030-2547-11e8-b2c8-49c61f7c20a6] - page.onError - stack:
+  value (http://img.app.meitudata.com/meitumv/MPH5Player/1.0.0/main.min.js:2)
+  value (http://img.app.meitudata.com/meitumv/MPH5Player/1.0.0/main.min.js:2)
+  (anonymous function) (http://img.app.meitudata.com/meitumv/MPH5Player/1.0.0/main.min.js:2)
+  a (http://img.app.meitudata.com/meitumv/MPH5Player/1.0.0/main.min.js:1)
+  (anonymous function) (http://img.app.meitudata.com/meitumv/MPH5Player/1.0.0/main.min.js:1)
+  (anonymous function) (http://img.app.meitudata.com/meitumv/MPH5Player/1.0.0/main.min.js:2)
+  a (http://img.app.meitudata.com/meitumv/MPH5Player/1.0.0/main.min.js:1)
+  e (http://img.app.meitudata.com/meitumv/MPH5Player/1.0.0/main.min.js:1)
+  (anonymous function) (http://img.app.meitudata.com/meitumv/MPH5Player/1.0.0/main.min.js:1)
+  (anonymous function) (http://img.app.meitudata.com/meitumv/MPH5Player/1.0.0/main.min.js:1)
+
+  phantomjs://platform/console++.js:263 in error
