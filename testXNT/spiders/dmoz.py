@@ -30,7 +30,6 @@ class DmozSpider(scrapy.Spider):
             # domzItem["linkValue"] = linkTag[0]['href']
             l.add_value("linkValue",linkTag[0]['href'])
             logging.info("link value: " + linkTag[0]['href'])
-
             linkTargetTag = videoTag.select(".v-link-tagrt .ico-SD")
             # domzItem["linkTarget"] = linkTargetTag[0].string
             if(len(linkTargetTag) > 0):
