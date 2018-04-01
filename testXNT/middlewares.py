@@ -164,10 +164,11 @@ class TestxntDownloaderMiddleware(object):
             if self.driver is None:
                 mac_phantomjs_path="/Users/mac/Desktop/phantomjs-2.1.1-macosx/bin/phantomjs"
                 linux_phantomjs_path="/root/application/phantomjs-2.1.1-linux-i686/bin/phantomjs"
-                self.driver = webdriver.PhantomJS(executable_path=linux_phantomjs_path)
+                self.driver = webdriver.PhantomJS(executable_path=mac_phantomjs_path)
                 logging.info("create drive")
             logging.info("request url: "+request.url)
             self.driver.get(request.url)
+            time.sleep(3)
             return HtmlResponse(self.driver.current_url, body=self.driver.page_source, encoding='utf-8', request=request)
         else:
             return response
