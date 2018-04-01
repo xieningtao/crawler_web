@@ -168,7 +168,7 @@ class TestxntDownloaderMiddleware(object):
                 logging.info("create drive")
             logging.info("request url: "+request.url)
             self.driver.get(request.url)
-            time.sleep(3)
+            time.sleep(30)
             logging.info("page_source: "+self.driver.page_source)
             return HtmlResponse(self.driver.current_url, body=self.driver.page_source, encoding='utf-8', request=request)
         else:
