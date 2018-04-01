@@ -20,7 +20,7 @@ class TestxntPipeline(object):
         logging.info("title: "+str(item["title"][0].encode('utf-8')))
         logging.info("linkValue: " + str(item["linkValue"][0].encode('utf-8')))
         # logging.info("content: "+str(dict(item)).encode("utf-8"))
-        # self.updateAndSave(item)
+        self.updateAndSave(item)
         return item
 
     def updateAndSave(self,item):
