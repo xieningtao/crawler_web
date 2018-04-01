@@ -1,3 +1,4 @@
 from scrapy import cmdline
 
-cmdline.execute("scrapy crawl baiduTest".split())
+# cmdline.execute("scrapy crawl image".split())
+cmdline.execute("scrapy crawl livideo".split())

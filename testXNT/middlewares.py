@@ -10,6 +10,7 @@ import logging
 from selenium import webdriver
 import time
 from scrapy.http import HtmlResponse
+from selenium.webdriver.chrome.options import Options
 
 class TestxntSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
@@ -63,6 +64,7 @@ class TestxntDownloaderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the downloader middleware does not modify the
     # passed objects.
+    driver = None
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -154,6 +156,19 @@ class TestxntDownloaderMiddleware(object):
                 time.sleep(3)
             # driver.quit()
             return HtmlResponse(driver.current_url, body=driver.page_source, encoding='utf-8', request=request)
+        elif "www.pearvideo.com" in request.url:
+            # chrome_options = Options()
+            # chrome_options.add_argument('--headless')
+            # chrome_options.add_argument('--disable-gpu')
+            # driver = webdriver.Chrome(chrome_options=chrome_options,executable_path="/Users/mac/Desktop/chromedriver");
+            if self.driver is None:
+                mac_phantomjs_path="/Users/mac/Desktop/phantomjs-2.1.1-macosx/bin/phantomjs"
+                linux_phantomjs_path="/root/application/phantomjs-2.1.1-linux-i686/bin/phantomjs"
+                self.driver = webdriver.PhantomJS(executable_path=linux_phantomjs_path)
+                logging.info("create drive")
+            logging.info("request url: "+request.url)
+            self.driver.get(request.url)
+            return HtmlResponse(self.driver.current_url, body=self.driver.page_source, encoding='utf-8', request=request)
         else:
             return response
 
