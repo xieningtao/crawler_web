@@ -22,7 +22,11 @@ class LiVideoSpider(scrapy.Spider):
 
         latest_videos = latest_video_containers.select(".categoryem");
         logging.info("video count: "+str(len(latest_videos)))
+        i = 0
         for latest_video in latest_videos:
+            i = i + 1
+            if i == 2:
+                break
             video_title = latest_video.select_one(".vervideo-title").text.encode("utf-8")
             logging.info("title: "+video_title)
             video_detail_id = latest_video.select_one(".vervideo-lilink.actplay")["href"]
