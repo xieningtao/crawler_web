@@ -163,7 +163,7 @@ class TestxntDownloaderMiddleware(object):
             # driver = webdriver.Chrome(chrome_options=chrome_options,executable_path="/Users/mac/Desktop/chromedriver");
             if self.driver is None:
                 mac_phantomjs_path="/Users/mac/Desktop/phantomjs-2.1.1-macosx/bin/phantomjs"
-                linux_phantomjs_path="/root/application/phantomjs-2.1.1-linux-i686/bin/phantomjs"
+                linux_phantomjs_path="/root/application/phantomjs-2.1.1-linux-x86_64/bin/phantomjs"
                 self.driver = webdriver.PhantomJS(executable_path=linux_phantomjs_path)
                 logging.info("create drive")
             logging.info("request url: "+request.url)
