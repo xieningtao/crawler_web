@@ -39,7 +39,10 @@ class TestxntPipeline(object):
             logging.info("video_duration: " + str(item["video_duration"][0]))
             logging.info("video_label: " + str(item["video_label"][0]))
             self.updateAndSaveVideo(item)
+        elif "news" in spider.name:
+            self.updateAndSaveNews(item)
         return item
+
 
     def updateAndSave(self,item):
         # logging.info("result: "+json.dumps(item));
@@ -70,3 +73,9 @@ class TestxntPipeline(object):
         else:
             logging.info("this video is exist url: " + item["video_url"][0])
 
+    def updateAndSaveNews(self,item):
+        result = self.db.video.find({"news_title": item["news_title"][0]})
+        if result.count() == 0:
+            self.db.news.insert(dict(item))
+        else:
+            logging.info("this new is exist : " + item["news_title"][0])

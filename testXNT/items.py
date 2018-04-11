@@ -46,3 +46,12 @@ class LiVideo(scrapy.Item):
     video_duration = scrapy.Field()
     video_label = scrapy.Field()
     timestamp = scrapy.Field()
+
+class NetNews(scrapy.Item):
+    news_title = scrapy.Field()
+    news_digest = scrapy.Field()
+    news_detail = scrapy.Field()
+    news_img_url = scrapy.Field()
+    news_label = scrapy.Field()
+    news_id = scrapy.Field()
+    timestamp = scrapy.Field()
