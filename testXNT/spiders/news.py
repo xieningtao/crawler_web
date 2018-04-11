@@ -5,6 +5,7 @@ from  testXNT.items import NetNews
 import time
 import json
 import requests
+from scrapy.contrib.loader import ItemLoader
 
 class NewsSpider(scrapy.Spider):
     name = 'news'
