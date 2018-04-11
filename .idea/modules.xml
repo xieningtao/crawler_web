@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/testXNT.iml" filepath="$PROJECT_DIR$/.idea/testXNT.iml" />
+      <module fileurl="file://D:\gitRepository\python\xnt_fun\.idea\testXNT.iml" filepath="D:\gitRepository\python\xnt_fun\.idea\testXNT.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/xnt_fun.iml" filepath="$PROJECT_DIR$/.idea/xnt_fun.iml" />
     </modules>
   </component>
 </project>
