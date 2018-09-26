@@ -7,7 +7,7 @@
 import json
 import logging
 import pymongo
-from testXNT.items import ImgItem,ImgGroup,ImgCover
+from com.items import ImgItem,ImgGroup,ImgCover
 
 class TestxntPipeline(object):
 

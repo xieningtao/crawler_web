@@ -9,10 +9,10 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'testXNT'
+BOT_NAME = 'com'
 
-SPIDER_MODULES = ['testXNT.spiders']
-NEWSPIDER_MODULE = 'testXNT.spiders'
+SPIDER_MODULES = ['com.spiders']
+NEWSPIDER_MODULE = 'com.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -53,7 +53,7 @@ ROBOTSTXT_OBEY = False
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-  'testXNT.middlewares.TestxntDownloaderMiddleware': 543,
+  'com.middlewares.TestxntDownloaderMiddleware': 543,
 }
 
 # Enable or disable extensions
@@ -65,7 +65,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'testXNT.pipelines.TestxntPipeline': 300,
+   'com.pipelines.TestxntPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

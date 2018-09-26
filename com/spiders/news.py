@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 import logging
-from  testXNT.items import NetNews
+from  com.items import NetNews
 import time
 import json
 import requests

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
+import logging
 import scrapy
 from bs4 import BeautifulSoup
-import logging
-from testXNT.items import ImgItem,ImgGroup,ImgCover
+from com.items import ImgItem,ImgGroup,ImgCover
 import time
 from scrapy.contrib.loader import ItemLoader
 

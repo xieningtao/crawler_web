@@ -3,7 +3,7 @@ import scrapy
 
 from bs4 import BeautifulSoup
 import logging
-from testXNT.items import DmozItem
+from com.items import DmozItem
 from scrapy.contrib.loader import ItemLoader
 
 class DmozSpider(scrapy.Spider):

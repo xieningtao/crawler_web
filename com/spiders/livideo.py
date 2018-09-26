@@ -4,7 +4,7 @@ import scrapy
 from scrapy.contrib.loader import ItemLoader
 from bs4 import BeautifulSoup
 import logging
-from  testXNT.items import LiVideo
+from  com.items import LiVideo
 import time
 
 
