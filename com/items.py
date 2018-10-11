@@ -47,6 +47,7 @@ class LiVideo(scrapy.Item):
     video_label = scrapy.Field()
     timestamp = scrapy.Field()
 
+
 class NetNews(scrapy.Item):
     news_title = scrapy.Field()
     news_digest = scrapy.Field()
@@ -55,3 +56,12 @@ class NetNews(scrapy.Item):
     news_label = scrapy.Field()
     news_id = scrapy.Field()
     timestamp = scrapy.Field()
+
+
+class HCJiePaiGroup(scrapy.Item):
+    jie_pai_title = scrapy.Field()
+
+
+class HCJiePaiDetail(scrapy.Item):
+    jie_pai_detail_img = scrapy.Field()
+    jie_pai_detail_desc = scrapy.Field()
