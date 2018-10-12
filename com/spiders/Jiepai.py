@@ -2,9 +2,8 @@
 import scrapy
 from bs4 import BeautifulSoup
 import logging
-from scrapy.contrib.loader import ItemLoader
+from scrapy.loader import ItemLoader
 from com.items import HCJiePaiGroup
-from com.items import HCJiePaiDetail
 import requests
 import json
 import time

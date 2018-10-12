@@ -65,3 +65,7 @@ class HCJiePaiGroup(scrapy.Item):
 class HCJiePaiDetail(scrapy.Item):
     jie_pai_detail_img = scrapy.Field()
     jie_pai_detail_desc = scrapy.Field()
+
+class BaiduJiePai(scrapy.Item):
+    image_urls = scrapy.Field()
+    images = scrapy.Field()

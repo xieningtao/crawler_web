@@ -6,8 +6,14 @@
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import json
 import logging
+
 import pymongo
-from com.items import ImgItem,ImgGroup,ImgCover
+import requests
+import scrapy
+from scrapy.exceptions import DropItem
+from scrapy.pipelines.images import ImagesPipeline
+
+from items import ImgItem,ImgGroup,ImgCover
 
 class TestxntPipeline(object):
 
@@ -79,3 +85,61 @@ class TestxntPipeline(object):
             self.db.news.insert(dict(item))
         else:
             logging.info("this new is exist : " + item["news_title"][0])
+
+class BaiduJiepaiImgDownloadPipeline(ImagesPipeline):
+
+    def get_media_requests(self, item, info):
+        for image_url in item['image_urls']:
+            # self.default_headers['referer'] = image_url
+            logging.info("BaiduJiepaiImgDownloadPipeline imge_url: "+image_url)
+            yield scrapy.Request(image_url)
+
+    def item_completed(self, results, item, info):
+        logging.info("item_completed results: ")
+        image_paths = [x['path'] for ok, x in results if ok]
+        if not image_paths:
+            raise DropItem("Item contains no images")
+        return item
+
+
+class UploadJiePaiPicPipeline(object):
+
+    def process_item(self, item, spider):
+        logging.info("UploadJiePaiPicPipeline-->process_item")
+
+        upload_detail_content = {}
+        upload_detail_content[""] = "@C:\\Users\\g8876\\Desktop\\jiepai\\full\\test.jpg"
+        upload_detail_content["imgDesc"] = "this is a test";
+
+        upload_detail_point = {}
+        upload_detail_point["__type"] = "Pointer";
+        upload_detail_point["className"] = "CardPicGroup";
+        upload_detail_point["objectId"] = "f8dc9d9169";
+
+        upload_detail_content["PicGroupId"] = upload_detail_point
+
+
+    def uploadImgFile(self,url,path):
+        headers = {
+            'X-Bmob-Application-Id': '55a1a92dd0096e5178ff10be85b06feb',
+            'X-Bmob-REST-API-Key': '83c860ec56761949993c558c37a1cc45',
+            'Content-Type': 'image/jpg'
+        }  ## headers中添加上content-type这个参数，指定为json格式
+        data = file(path, 'rb').read()
+        response = requests.post(url=url, headers=headers, data=data)
+        logging.info("uploadImgFile response content: " + response.content)
+        json_content = json.loads(response.content)
+        logging.info("uploadImgFile json_content: "+str(json_content))
+        return json_content["url"]
+
+    def upload_to_bmob(self, url, data):
+        headers = {
+            'X-Bmob-Application-Id': '55a1a92dd0096e5178ff10be85b06feb',
+            'X-Bmob-REST-API-Key': '83c860ec56761949993c558c37a1cc45',
+            'Content-Type': 'image/jpg'
+        }  ## headers中添加上content-type这个参数，指定为json格式
+        logging.info("upload_to_bmob data: " + json.dumps(data))
+        response = requests.post(url=url, headers=headers, data=json.dumps(data))
+        logging.info("upload_to_bmob data response content: " + response.content)
+        json_content = json.loads(response.content)
+        return json_content["objectId"]
