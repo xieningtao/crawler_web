@@ -3,15 +3,22 @@
 1、图片来源
 2、文字来源
 
-	能否爬百度的文章，目前貌似不行，这类有图片并且有文字，很好
+	能否爬百度的文章，目前貌似不行，这类有图片并且有文字，很好，已经利用百度app收藏了不少
+	比如：https://baijiahao.baidu.com/u?app_id=1585405779162255
+
 	爬微博的，需要找一些固定号的进行更新，比如：皇城
+	关注一些街拍微博，比如：https://weibo.com/u/1304494805?refer_flag=1005055013_&is_all=1#_rnd1539792408775
+	对图片进行分析，发现规律，
+	//wx1.sinaimg.cn/mw690/4dc102d5ly1fwbim68a1fj22c02c0x6p.jpg（大图）
+    //wx1.sinaimg.cn/thumb150/4dc102d5ly1fwbim68a1fj22c02c0x6p.jpg（小图）
 
 	爬3A街拍的图片，但是只有两张是免费的，质量不错（https://www.3ajiepai.com/forum-184-1.html）
+	主要爬这一类，每天都有更新https://www.3ajiepai.com/article-1274-1.html
 
 	爬街拍之家的图片，目前都还好，但是质量不怎么高（http://www.jiepaizj.com/forum-50-1.html）
+	主要爬这一类，可以按照时间先后顺序来处理
+	http://www.jiepaizj.com/forum.php?mod=viewthread&tid=13392&extra=page%3D1%26filter%3Dlastpost%26orderby%3Dlastpost
 	
-	爬街拍美女的图片，质量一般，但是有配文字（https://www.2s5s.com/）
-
 
 	单独图片的需要自己去找文字配
 
