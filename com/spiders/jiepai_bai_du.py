@@ -9,8 +9,8 @@ from scrapy.loader import ItemLoader
 from com.items import BaiduJiePai
 
 
-class BaiduJiepaiSpider(scrapy.Spider):
-    name = 'baidu_jiepai'
+class JiepaiBaiDuSpider(scrapy.Spider):
+    name = 'jiepai_bai_du'
     allowed_domains = ['mbd.baidu.com',"pic.rmb.bdstatic.com","www.bucuo.me"]
     # start_urls = ['https://mbd.baidu.com/newspage/data/landingshare?context=%7B%22nid%22%3A%22news_9092911382839666944%22%2C%22sourceFrom%22%3A%22bjh%22%2C%22url_data%22%3A%22bjhauthor%22%7D']
     start_urls = ['https://www.bucuo.me/v/news_9229896512998137007']

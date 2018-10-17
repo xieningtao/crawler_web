@@ -67,8 +67,8 @@ DOWNLOADER_MIDDLEWARES = {
 #后面的数字决定pipeline执行的顺序，顺序由低到高
 ITEM_PIPELINES = {
    'com.pipelines.TestxntPipeline': 300,
-   'com.pipelines.BaiduJiepaiImgDownloadPipeline': 301,
-   'com.pipelines.UploadJiePaiPicPipeline': 302,
+   # 'com.pipelines.BaiduJiepaiImgDownloadPipeline': 301,
+   # 'com.pipelines.UploadJiePaiPicPipeline': 302,
 }
 IMAGES_STORE = 'C:\\Users\\g8876\\Desktop\\jiepai'
 # MEDIA_ALLOW_REDIRECTS = True

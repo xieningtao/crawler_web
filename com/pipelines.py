@@ -10,6 +10,7 @@ import logging
 import pymongo
 import requests
 import scrapy
+from bs4 import BeautifulSoup
 from scrapy.exceptions import DropItem
 from scrapy.pipelines.images import ImagesPipeline
 
@@ -104,7 +105,10 @@ class BaiduJiepaiImgDownloadPipeline(ImagesPipeline):
 
 class UploadJiePaiPicPipeline(object):
 
+
     def process_item(self, item, spider):
+
+
         logging.info("UploadJiePaiPicPipeline-->process_item")
 
         upload_detail_content = {}
@@ -117,6 +121,8 @@ class UploadJiePaiPicPipeline(object):
         upload_detail_point["objectId"] = "f8dc9d9169";
 
         upload_detail_content["PicGroupId"] = upload_detail_point
+
+
 
 
     def uploadImgFile(self,url,path):

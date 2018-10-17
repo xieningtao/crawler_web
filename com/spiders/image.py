@@ -4,7 +4,7 @@ import scrapy
 from bs4 import BeautifulSoup
 from com.items import ImgItem,ImgGroup,ImgCover
 import time
-from scrapy.contrib.loader import ItemLoader
+from scrapy.loader import ItemLoader
 
 
 class ImageSpider(scrapy.Spider):
