@@ -95,7 +95,13 @@ class TestxntDownloaderMiddleware(object):
         # - return a Request object
         # - or raise IgnoreRequest
         logging.debug("method->process_response request+ " + str(request))
-        if "id_91374690" in request.url:
+        if "www.weibo.com" in request.url:
+            driver = webdriver.PhantomJS(executable_path="D:\\phantomjs-2.1.1-windows\\bin")
+            driver.get(request.url)
+            originResult = HtmlResponse(driver.current_url, body=driver.page_source, encoding='utf-8', request=request)
+            logging.debug("another page : " + driver.page_source)
+            return originResult
+        elif "id_91374690" in request.url:
             driver = webdriver.PhantomJS(executable_path="/Users/mac/Desktop/phantomjs-2.1.1-macosx/bin/phantomjs")
             driver.get(request.url)
             time.sleep(1)

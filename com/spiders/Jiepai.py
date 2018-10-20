@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import logging
 from scrapy.loader import ItemLoader
 from com.items import HCJiePaiGroup
+from com.utils.bmob_upload_helper import BMobUploadHelper
 import requests
 import json
 import time
@@ -34,6 +35,7 @@ class JiepaiSpider(scrapy.Spider):
         self.sina = "http://blog.sina.com.cn/s/articlelist_1340398703_4_1.html"
         self.bucou = "https://www.bucuo.me/app/1583407618504778"
         self.cur_time = "2018-10-18 00:00:00"
+        self.bmob_helper = BMobUploadHelper()
 
     def parse(self, response):
         bsp = BeautifulSoup(response.body, 'lxml')
@@ -104,14 +106,14 @@ class JiepaiSpider(scrapy.Spider):
 
             #第一张图片作为封面
             if is_first:
-                upload_group_content = self.get_group_content(img_url, title)
+                upload_group_content = self.bmob_helper.get_group_content(img_url, title)
                 url = "https://api2.bmob.cn/1/classes/CardPicGroup"
                 logging.info("parse_bu_cuo_detail group data: " + json.dumps(upload_group_content, ensure_ascii=False))
                 # point_group_id = self.upload_to_bmob(url, upload_group_content)
                 is_first = False
             else:
                 #后续图片作为sub_img
-                upload_detail_content = self.get_detail_content(img_desc,img_url,point_group_id)
+                upload_detail_content = self.bmob_helper.get_detail_content(img_desc,img_url,point_group_id)
                 url = "https://api2.bmob.cn/1/classes/CardPicBean"
                 logging.info("parse_bu_cuo_detail detail data: " + json.dumps(upload_detail_content,ensure_ascii=False))
                 # self.upload_to_bmob(url, upload_detail_content)
@@ -154,15 +156,15 @@ class JiepaiSpider(scrapy.Spider):
             # 第一张图片作为封面
             if is_first:
                 # 上传group
-                upload_group_content = self.get_group_content(img_url, title)
+                upload_group_content = self.bmob_helper.get_group_content(img_url, title)
                 url = "https://api2.bmob.cn/1/classes/CardPicGroup"
                 logging.info("upload_group_content data: " + json.dumps(upload_group_content, ensure_ascii=False))
-                # point_group_id = self.upload_to_bmob(url, upload_group_content)
+                # point_group_id = self.bmob_helper.upload_to_bmob(url, upload_group_content)
             elif img_desc.strip() != "":
-                upload_detail_content = self.get_detail_content(img_desc, img_url, point_group_id)
+                upload_detail_content = self.bmob_helper.get_detail_content(img_desc, img_url, point_group_id)
                 url = "https://api2.bmob.cn/1/classes/CardPicBean"
                 logging.info("upload json: " + json.dumps(upload_detail_content))
-                # self.upload_to_bmob(url, upload_detail_content)
+                # self.bmob_helper.upload_to_bmob(url, upload_detail_content)
             logging.info(
                 'jie_pai_detail img_width: ' + str(img_width) + ' img_height: ' + str(
                     img_height) + ' img_src: ' + img_url + ' img_desc: ' + img_desc)
@@ -183,23 +185,7 @@ class JiepaiSpider(scrapy.Spider):
 
         return img_desc
 
-    def get_detail_content(self, img_desc, img_url, point_group_id):
-        upload_detail_content = {}
-        upload_detail_content["imageUrl"] = img_url
-        upload_detail_content["imgDesc"] = img_desc;
-        upload_detail_point = {}
-        upload_detail_point["__type"] = "Pointer";
-        upload_detail_point["className"] = "CardPicGroup";
-        upload_detail_point["objectId"] = point_group_id;
-        upload_detail_content["PicGroupId"] = upload_detail_point
-        return upload_detail_content
 
-    def get_group_content(self, img_url, title):
-        upload_group_content = {}
-        upload_group_content["imgUrl"] = img_url;
-        upload_group_content["imgDesc"] = title;
-        upload_group_content["imgLabel"] = "街拍"
-        return upload_group_content
 
     def get_article_list_class_by(self,url):
         article_class = ""
@@ -238,15 +224,3 @@ class JiepaiSpider(scrapy.Spider):
 
         return details_class
 
-
-    def upload_to_bmob(self, url, data):
-        headers = {
-            'X-Bmob-Application-Id': '55a1a92dd0096e5178ff10be85b06feb',
-            'X-Bmob-REST-API-Key': '83c860ec56761949993c558c37a1cc45',
-            'Content-Type': 'application/json'
-        }  ## headers中添加上content-type这个参数，指定为json格式
-        logging.info("upload_to_bmob data: " + json.dumps(data))
-        response = requests.post(url=url, headers=headers, data=json.dumps(data))
-        logging.info("upload_to_bmob data response content: " + response.content)
-        json_content = json.loads(response.content)
-        return json_content["objectId"]
