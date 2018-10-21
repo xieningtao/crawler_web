@@ -24,8 +24,8 @@ class JiepaiSpider(scrapy.Spider):
     ,'www.bucuo.me']
 
     start_urls = [
-        'http://blog.sina.com.cn/s/articlelist_1340398703_4_1.html'
-    ,
+        # 'http://blog.sina.com.cn/s/articlelist_1340398703_4_1.html'
+    # ,
         'https://www.bucuo.me/app/1583407618504778'
     ]
 
@@ -34,7 +34,7 @@ class JiepaiSpider(scrapy.Spider):
         super(JiepaiSpider,self).__init__(name)
         self.sina = "http://blog.sina.com.cn/s/articlelist_1340398703_4_1.html"
         self.bucou = "https://www.bucuo.me/app/1583407618504778"
-        self.cur_time = "2018-10-18 00:00:00"
+        self.cur_time = "2018-10-20 00:00:00"
         self.bmob_helper = BMobUploadHelper()
 
     def parse(self, response):

@@ -85,6 +85,27 @@ class TestxntDownloaderMiddleware(object):
         # - or raise IgnoreRequest: process_exception() methods of
         #   installed downloader middleware will be called
         logging.debug("method->process_request request+ "+str(request))
+        if "huaban.com" in request.url:
+            driver = webdriver.Chrome();
+            # driver = webdriver.PhantomJS(executable_path="/Users/mac/Desktop/phantomjs-2.1.1-macosx/bin/phantomjs")
+            driver.get(request.url)
+            logging.debug("method->process_response huaban.com+ " + str(request.url))
+            time.sleep(3)
+            originResult = HtmlResponse(driver.current_url, body=driver.page_source, encoding='utf-8', request=request)
+            # logging.debug("another page : " + driver.page_source)
+            return originResult
+        # elif "weibo.com" in request.url:
+        #     # driver = webdriver.Chrome();
+        #     driver = webdriver.PhantomJS(executable_path="/Users/mac/Desktop/phantomjs-2.1.1-macosx/bin/phantomjs")
+        #     driver.get(request.url)
+        #     # driver.get("https://weibo.com/u/1304494805?is_all=1")#街拍美
+        #     # driver.get("https://weibo.com/u/3757458303?is_all=1")#街拍摄美
+        #     # real_url = request._meta["redirect_urls"][0]
+        #     # driver.get(real_url)
+        #     time.sleep(5)
+        #     originResult = HtmlResponse(driver.current_url, body=driver.page_source, encoding='utf-8', request=request)
+        #     # logging.debug("another page : " + driver.page_source)
+        #     return originResult
         return None
 
     def process_response(self, request, response, spider):
@@ -95,11 +116,25 @@ class TestxntDownloaderMiddleware(object):
         # - return a Request object
         # - or raise IgnoreRequest
         logging.debug("method->process_response request+ " + str(request))
-        if "www.weibo.com" in request.url:
-            driver = webdriver.PhantomJS(executable_path="D:\\phantomjs-2.1.1-windows\\bin")
+        if "www.3ajiepai.com" in request.url:
+            driver = webdriver.Chrome();
+            # driver = webdriver.PhantomJS(executable_path="/Users/mac/Desktop/phantomjs-2.1.1-macosx/bin/phantomjs")
             driver.get(request.url)
+            logging.debug("method->process_response three_m+ " + str(request.url))
+            time.sleep(3)
             originResult = HtmlResponse(driver.current_url, body=driver.page_source, encoding='utf-8', request=request)
-            logging.debug("another page : " + driver.page_source)
+            # logging.debug("another page : " + driver.page_source)
+            return originResult
+        elif "passport.weibo.com" in request.url:
+            driver = webdriver.Chrome();
+            # driver.get(request.url)
+            # driver.get("https://weibo.com/u/1304494805?is_all=1")#街拍美
+            # driver.get("https://weibo.com/u/3757458303?is_all=1")#街拍摄美
+            real_url=request._meta["redirect_urls"][0]
+            driver.get(real_url)
+            time.sleep(5)
+            originResult = HtmlResponse(driver.current_url, body=driver.page_source, encoding='utf-8', request=request)
+            # logging.debug("another page : " + driver.page_source)
             return originResult
         elif "id_91374690" in request.url:
             driver = webdriver.PhantomJS(executable_path="/Users/mac/Desktop/phantomjs-2.1.1-macosx/bin/phantomjs")
