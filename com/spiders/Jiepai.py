@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag, NavigableString
 import logging
 from scrapy.loader import ItemLoader
 from com.items import HCJiePaiGroup
@@ -24,9 +24,9 @@ class JiepaiSpider(scrapy.Spider):
     ,'www.bucuo.me']
 
     start_urls = [
-        # 'http://blog.sina.com.cn/s/articlelist_1340398703_4_1.html'
+        'http://blog.sina.com.cn/s/articlelist_1340398703_4_1.html'
     # ,
-        'https://www.bucuo.me/app/1583407618504778'
+        # 'https://www.bucuo.me/app/1583407618504778'
     ]
 
 
@@ -34,8 +34,9 @@ class JiepaiSpider(scrapy.Spider):
         super(JiepaiSpider,self).__init__(name)
         self.sina = "http://blog.sina.com.cn/s/articlelist_1340398703_4_1.html"
         self.bucou = "https://www.bucuo.me/app/1583407618504778"
-        self.cur_time = "2018-10-20 00:00:00"
+        self.cur_time = "2018-10-23 00:00:00"
         self.bmob_helper = BMobUploadHelper()
+        self.point_group_id = ""
 
     def parse(self, response):
         bsp = BeautifulSoup(response.body, 'lxml')
@@ -46,8 +47,8 @@ class JiepaiSpider(scrapy.Spider):
         title =""
         for article in article_list:
             count +=1;
-            if count == 2:
-                break
+            # if count == 2:
+            #     break
 
             article_time_class = self.get_article_time_class_by(cur_url)
             article_time = article.select(article_time_class)
@@ -113,7 +114,7 @@ class JiepaiSpider(scrapy.Spider):
                 is_first = False
             else:
                 #后续图片作为sub_img
-                upload_detail_content = self.bmob_helper.get_detail_content(img_desc,img_url,point_group_id)
+                upload_detail_content = self.bmob_helper.get_news_detail_content(img_desc,img_url,point_group_id)
                 url = "https://api2.bmob.cn/1/classes/CardPicBean"
                 logging.info("parse_bu_cuo_detail detail data: " + json.dumps(upload_detail_content,ensure_ascii=False))
                 # self.upload_to_bmob(url, upload_detail_content)
@@ -125,20 +126,19 @@ class JiepaiSpider(scrapy.Spider):
             br.extract()
 
         title = response.meta["group_title"]
-        point_group_id = ""
         jie_pai_details = bsp.select_one('#sina_keyword_ad_area2')
         jie_pai_detail_links = jie_pai_details.select('a')
         is_first = True;
         for jie_pai_detail in jie_pai_detail_links:
             link_content = jie_pai_detail['href']
             if 'photo.blog.sina.com.cn' in link_content:
-                result = self.process_detail(is_first, jie_pai_detail, point_group_id, title)
+                result = self.process_detail(is_first, jie_pai_detail, title)
                 if result and is_first:
                     is_first = False;
             else:
                 logging.info('jie_pai_detail end')
 
-    def process_detail(self, is_first, jie_pai_detail, point_group_id, title):
+    def process_detail(self, is_first, jie_pai_detail, title):
         jie_pai_detail_img = jie_pai_detail.select('img')
         img_width = 0
         img_height = 0;
@@ -153,21 +153,22 @@ class JiepaiSpider(scrapy.Spider):
 
             #另外一种情况获取img_desc
             img_desc = self.get_img_desc_if_needed(img_desc, jie_pai_detail)
+            logging.info("type: " + str(type(img_desc)))
             # 第一张图片作为封面
             if is_first:
                 # 上传group
-                upload_group_content = self.bmob_helper.get_group_content(img_url, title)
-                url = "https://api2.bmob.cn/1/classes/CardPicGroup"
+                upload_group_content = self.bmob_helper.get_group_content_with_title(img_url,img_desc, title)
+                url = "https://api2.bmob.cn/1/classes/StyleNews"
                 logging.info("upload_group_content data: " + json.dumps(upload_group_content, ensure_ascii=False))
-                # point_group_id = self.bmob_helper.upload_to_bmob(url, upload_group_content)
-            elif img_desc.strip() != "":
-                upload_detail_content = self.bmob_helper.get_detail_content(img_desc, img_url, point_group_id)
-                url = "https://api2.bmob.cn/1/classes/CardPicBean"
-                logging.info("upload json: " + json.dumps(upload_detail_content))
-                # self.bmob_helper.upload_to_bmob(url, upload_detail_content)
-            logging.info(
-                'jie_pai_detail img_width: ' + str(img_width) + ' img_height: ' + str(
-                    img_height) + ' img_src: ' + img_url + ' img_desc: ' + img_desc)
+                self.point_group_id = self.bmob_helper.upload_to_bmob(url, upload_group_content)
+            elif type(img_desc) == NavigableString:
+                upload_detail_content = self.bmob_helper.get_news_detail_content(img_desc, img_url, self.point_group_id)
+                url = "https://api2.bmob.cn/1/classes/StyleDetailItem"
+                logging.info("upload json: " + json.dumps(upload_detail_content,ensure_ascii=False))
+                self.bmob_helper.upload_to_bmob(url, upload_detail_content)
+            # logging.info(
+            #     'jie_pai_detail img_width: ' + str(img_width) + ' img_height: ' + str(
+            #         img_height) + ' img_src: ' + img_url + ' img_desc: ' + img_desc)
             return True
         else:
             logging.info("jie_pai_detail img_heigh: " + str(img_height) + " img_width: " + str(img_width))
