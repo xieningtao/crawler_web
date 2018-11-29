@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup, Tag, NavigableString
 import logging
 from scrapy.loader import ItemLoader
 from com.items import HCJiePaiGroup
+from com.utils import time_utils
 from com.utils.bmob_upload_helper import BMobUploadHelper
 import requests
 import json
@@ -34,7 +35,7 @@ class JiepaiSpider(scrapy.Spider):
         super(JiepaiSpider,self).__init__(name)
         self.sina = "http://blog.sina.com.cn/s/articlelist_1340398703_4_1.html"
         self.bucou = "https://www.bucuo.me/app/1583407618504778"
-        self.cur_time = "2018-10-23 00:00:00"
+        self.cur_time = time_utils.get_jie_pai_scrapy_time()
         self.bmob_helper = BMobUploadHelper()
         self.point_group_id = ""
 
@@ -81,6 +82,9 @@ class JiepaiSpider(scrapy.Spider):
 
             yield scrapy.Request(detail_url, meta={"group_title": title},
                                      callback=call_back)
+        # 所有的事情都办完了
+        time_utils.save_jie_pai_scrapy_time(time_utils.get_next_day_time())
+
     def parse_bu_cuo_detail(self,response):
         bsp = BeautifulSoup(response.body, 'lxml')
         for br in bsp('br'):

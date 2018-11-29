@@ -19,7 +19,7 @@ class JiepaiThreeAppSpider(scrapy.Spider):
 
     def __init__(self,name=None, **kwargs):
         super(JiepaiThreeAppSpider,self).__init__(name)
-        self.cur_time = time_utils.get_pre_day_time()
+        self.cur_time = time_utils.get_jie_pai_three_m_scrapy_time()
         self.cookies_jie_pai = {}
         self.bmob_helper = BMobUploadHelper()
 
@@ -76,6 +76,9 @@ class JiepaiThreeAppSpider(scrapy.Spider):
            cookies= self.cookies_jie_pai,
             callback=self.handle_detail)
 
+        # 所有的事情都办完了
+        time_utils.save_jie_pai_three_m_scrapy_time(time_utils.get_next_day_time())
+
 
     def handle_detail(self,response):
         data_thumb = response.meta["data_thumb"]
@@ -98,4 +101,5 @@ class JiepaiThreeAppSpider(scrapy.Spider):
                 detail_content = self.bmob_helper.get_detail_content("", img_url, point_group_id)
                 logging.info("upload sub_pics json: " + json.dumps(detail_content, ensure_ascii=False))
                 self.bmob_helper.upload_to_bmob(sub_pic_url, detail_content)
+
 

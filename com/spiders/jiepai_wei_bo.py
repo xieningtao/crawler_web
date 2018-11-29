@@ -7,6 +7,7 @@ import scrapy
 import time
 from bs4 import BeautifulSoup
 
+from com.utils import time_utils
 from com.utils.bmob_upload_helper import BMobUploadHelper
 
 class JiepaiWeiBoSpider(scrapy.Spider):
@@ -23,6 +24,7 @@ class JiepaiWeiBoSpider(scrapy.Spider):
         super(JiepaiWeiBoSpider, self).__init__(name)
         self.bmob_helper = BMobUploadHelper()
         self.key_words=["四年"]
+        self.craw_count = 0;
 
     def hit_key_word(self,word):
         result = False
@@ -39,7 +41,7 @@ class JiepaiWeiBoSpider(scrapy.Spider):
         wei_bo_items = wei_bo_group.select(".WB_feed_detail.clearfix")
         count = 0
         title = ""
-        cur_wei_bo_time = "2018-10-21 00:00"
+        cur_wei_bo_time = time_utils.get_jie_pai_wei_bo_scrapy_time()
         cur_group_id=""
         point_group_id=""
         for wei_bo_item in wei_bo_items:
@@ -92,6 +94,12 @@ class JiepaiWeiBoSpider(scrapy.Spider):
                     detail_content=self.bmob_helper.get_detail_content("", img_urls[index], point_group_id)
                     logging.info("upload sub_pics json: " + json.dumps(detail_content,ensure_ascii=False))
                     self.bmob_helper.upload_to_bmob(sub_pic_url, detail_content)
+
+        self.craw_count = self.craw_count + 1
+
+        if self.craw_count == len(self.start_urls):
+            # 所有的事情都办完了
+            time_utils.save_jie_pai_weibo_scrapy_time(time_utils.get_next_day_time())
 
 
 

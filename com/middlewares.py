@@ -117,6 +117,7 @@ class TestxntDownloaderMiddleware(object):
         # - or raise IgnoreRequest
         logging.debug("method->process_response request+ " + str(request))
         if "www.3ajiepai.com" in request.url:
+            # driver = webdriver.Chrome("D:\\install_package\\chromedriver_win32\\chromedriver.exe");
             driver = webdriver.Chrome();
             # driver = webdriver.PhantomJS(executable_path="/Users/mac/Desktop/phantomjs-2.1.1-macosx/bin/phantomjs")
             driver.get(request.url)

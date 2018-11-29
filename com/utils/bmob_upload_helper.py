@@ -46,6 +46,8 @@ class BMobUploadHelper(object):
         upload_group_content["imgLabel"] = "街拍"
         return upload_group_content
 
+
+
     def upload_to_bmob(self, url, data):
         headers = {
             'X-Bmob-Application-Id': '55a1a92dd0096e5178ff10be85b06feb',
